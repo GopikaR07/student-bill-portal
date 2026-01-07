@@ -1,0 +1,485 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f1f5f9;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #0f172a;
+}
+
+.container {
+  width: 1100px;
+  margin: 40px auto;
+}
+
+.header {
+  background: #1e293b;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #64748b;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th {
+  background: #f8fafc;
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.status-pending {
+  color: #d97706;
+  font-weight: bold;
+}
+
+.status-approved {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.status-rejected {
+  color: #dc2626;
+  font-weight: bold;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 30px;
+  margin-top: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+input, textarea {
+  font-size: 14px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+}
+
+.product-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 10px;
+  background: #f8fafc;
+}
+
+.product-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.add-btn {
+  background: #16a34a;
+}
+
+.remove-btn {
+  background: #dc2626;
+}
+.navbar {
+  background: #1e293b;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+}
+/* PSG HEADER IMAGE */
+.psg-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.psg-header img {
+    max-width: 100%;
+    height: auto;
+}
+/* ---------- GLOBAL ---------- */
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ---------- LOGIN PAGE ---------- */
+.login-body {
+    margin: 0;
+    height: 100vh;
+    background: url("/static/images/bg.jpg") no-repeat center center/cover;
+    position: relative;
+}
+
+/* Dark + blur overlay */
+.bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+}
+
+/* Center container */
+.login-container {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Glass card */
+.login-card {
+    background: rgba(255, 255, 255, 0.92);
+    padding: 40px 50px;
+    border-radius: 14px;
+    width: 420px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+.login-card h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #0b2c5d;
+}
+
+/* Form rows */
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.form-row label {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.form-row input,
+.form-row select {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* Button */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #1f4ed8;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background: #163db8;
+}
+
+/* ---------- LOGIN BACKGROUND ---------- */
+.login-body {
+    margin: 0;
+    min-height: 100vh;
+    background: url("/static/images/bg.jpg") no-repeat center center/cover;
+    position: relative;
+}
+
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    z-index: 0;
+}
+
+/* ---------- TOP HEADER (NAVBAR STYLE) ---------- */
+.top-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    z-index: 3;
+    padding: 12px 0;
+    text-align: center;
+
+    background: transparent;   /* IMPORTANT */
+}
+
+
+.top-header img {
+    max-width: 95%;
+    height: auto;
+}
+
+
+/* ---------- LOGIN CARD ---------- */
+.login-container {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 80px; /* space below header */
+}
+
+
+.login-card {
+    background: rgba(255,255,255,0.96);
+    padding: 40px 50px;
+    width: 420px;
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+
+.login-card h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #0b2c5d;
+}
+
+/* ---------- FORM ---------- */
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.form-row label {
+    color: #1a1a1a;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-row input,
+.form-row select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #1f4ed8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background: #163db8;
+}
+.login-body {
+    margin: 0;
+    min-height: 100vh;
+    background: url("/static/images/bg.jpg") no-repeat center center/cover;
+    position: relative;
+}
+
+/* Blur + dark overlay */
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);   /* darken */
+    backdrop-filter: blur(8px);        /* blur background */
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 0;
+}
+.login-container {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.75);  /* LESS transparent */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    padding: 40px 45px;
+    width: 420px;
+    border-radius: 16px;
+
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+}
+
+.login-card h1 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-row label {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.form-row input,
+.form-row select {
+    background: rgba(255,255,255,0.9);
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+}
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #1f4ed8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background: #163db8;
+}
+/* FORCE DARK TEXT INSIDE LOGIN CARD */
+.login-card,
+.login-card h1,
+.login-card label,
+.login-card span,
+.login-card p {
+    color: #0b2c5d !important;   /* dark navy */
+}
+
+/* Inputs text color */
+.login-card input,
+.login-card select {
+    color: #000 !important;
+}
+
+/* Placeholder text */
+.login-card input::placeholder {
+    color: #555;
+}
+/* PAGE BACKGROUND */
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(
+        180deg,
+        #eaf2ff 0%,
+        #f4f8ff 40%,
+        #f7faff 100%
+    );
+}
+body {
+    background: linear-gradient(
+        180deg,
+        #dce9ff 0%,
+        #eef4ff 50%,
+        #ffffff 100%
+    );
+}
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 60, 120, 0.12);
+}
+
+
+.container {
+    background: transparent;
+}
+.dashboard-header {
+    background: #1e2a3b;
+    color: white;
+    border-radius: 12px;
+}
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #eaf2ff;   /* solid, no gradient */
+}

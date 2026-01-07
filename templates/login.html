@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="login-body">
+
+<!-- Background overlay -->
+<div class="bg-overlay"></div>
+
+<!-- ===== HEADER / NAVBAR ===== -->
+<div class="top-header">
+    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="PSG iTech">
+</div>
+
+<!-- ===== LOGIN CARD ===== -->
+<div class="login-container">
+    <div class="login-card">
+
+        <h1>Student Bill Portal</h1>
+
+        <form method="post">
+
+            <div class="form-row">
+                <label>Role</label>
+                <select name="role" onchange="updateLoginLabel()">
+                    <option value="student">Student</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label id="idLabel">Student ID</label>
+                <input name="student_id" id="idInput" placeholder="S001" required>
+            </div>
+
+            <div class="form-row">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function updateLoginLabel() {
+    const role = document.querySelector("select[name='role']").value;
+    const label = document.getElementById("idLabel");
+    const input = document.getElementById("idInput");
+
+    if (role === "admin") {
+        label.innerText = "Admin ID";
+        input.placeholder = "...";
+    } else {
+        label.innerText = "Student ID";
+        input.placeholder = "...";
+    }
+}
+</script>
+
+</body>
+</html>

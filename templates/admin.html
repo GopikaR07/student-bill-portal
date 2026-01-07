@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="navbar">
+    <h2>Student Bill Portal</h2>
+    <div>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Admin Panel</h1>
+    </div>
+
+    <div class="card">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Student ID</th>
+                <th>Shop</th>
+                <th>Products</th>
+                <th>Total</th>
+                <th>Documents</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            {% for r in rows %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td>{{ r.student_id }}</td>
+                <td>{{ r.shop }}</td>
+                <td>{{ r.products }}</td>
+                <td>₹ {{ r.total }}</td>
+               <td>
+  {% if r.bill %}
+  <a href="/{{ r.bill }}" target="_blank">View Bill</a><br>
+{% endif %}
+{% if r.passbook %}
+  <a href="/{{ r.passbook }}" target="_blank">View Passbook</a>
+{% endif %}
+
+
+</td>
+
+                <td class="status-{{ r.status|lower }}">{{ r.status }}</td>
+                <td>
+                    <a href="/verify/{{ r.id }}/Approved">
+                        <button>Approve</button>
+                    </a>
+                    <a href="/verify/{{ r.id }}/Rejected">
+                        <button class="secondary">Reject</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <br>
+        <a href="/download">
+            <button>Download Approved Excel</button>
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

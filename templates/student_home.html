@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="navbar">
+    <h2>Student Bill Portal</h2>
+    <div>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="header">
+        <h1>Student Dashboard</h1>
+    </div>
+
+    <div class="card actions">
+        <h2>Request History</h2>
+        <a href="/student/{{ sid }}/new">
+            <button>+ New Request</button>
+        </a>
+    </div>
+
+    <div class="card">
+        {% if requests %}
+        <table>
+            <tr>
+                <th>Request ID</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+            </tr>
+            {% for r in requests %}
+            <tr>
+                <td>{{ r[0] }}</td>
+                <td>₹ {{ r[1] }}</td>
+                <td class="status-{{ r[2]|lower }}">{{ r[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No previous requests found.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+database.db
+uploads/
+excel/
+__pycache__/
+*.pyc
+.env

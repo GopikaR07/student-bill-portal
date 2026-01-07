@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="navbar">
+    <h2>Student Bill Portal</h2>
+    <div>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>New Bill Request</h1>
+
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Shop Name</label>
+                    <input name="shop" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Total Amount</label>
+                    <input name="total" required>
+                </div>
+
+                <!-- PRODUCT SECTION -->
+                <div class="form-group full">
+                    <label>Product Details</label>
+
+                    <div id="products" class="product-box">
+
+                        <div class="product-row">
+                            <input name="product_name[]" placeholder="Product Name" required>
+                            <input name="product_price[]" placeholder="Price" required>
+                            <button type="button" class="remove-btn" onclick="removeProduct(this)">✖</button>
+                        </div>
+
+                    </div>
+
+                    <button type="button" class="add-btn" onclick="addProduct()">+ Add Product</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Bank Name</label>
+                    <input name="bank" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Account Number</label>
+                    <input name="acc" required>
+                </div>
+
+                <div class="form-group">
+                    <label>IFSC Code</label>
+                    <input name="ifsc" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Branch</label>
+                    <input name="branch" required>
+                </div>
+
+                <div class="form-group full">
+                    <label>Upload Bill PDF</label>
+                    <input type="file" name="bill_pdf" accept="application/pdf" required>
+                </div>
+
+                <div class="form-group full">
+                    <label>Upload Passbook PDF</label>
+                    <input type="file" name="passbook_pdf" accept="application/pdf" required>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Submit Request</button>
+                <a href="/student/{{ sid }}">
+                    <button type="button" class="secondary">Cancel</button>
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- JS FOR DYNAMIC PRODUCTS -->
+<script>
+function addProduct() {
+    const div = document.createElement("div");
+    div.className = "product-row";
+    div.innerHTML = `
+        <input name="product_name[]" placeholder="Product Name" required>
+        <input name="product_price[]" placeholder="Price" required>
+        <button type="button" class="remove-btn" onclick="removeProduct(this)">✖</button>
+    `;
+    document.getElementById("products").appendChild(div);
+}
+
+function removeProduct(btn) {
+    btn.parentElement.remove();
+}
+</script>
+
+</body>
+</html>

@@ -1,110 +1,258 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>New Request</title>
+    <title>New Bill Request</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Navbar */
+        .navbar {
+            background: #1e293b;
+            color: white;
+            padding: 14px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .add-btn {
+            margin-top: 10px;
+            padding: 8px 14px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .remove-btn {
+            padding: 4px 8px;
+            background: #e5e7eb;
+            color: #374151;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .remove-btn:hover {
+            background: #d1d5db;
+        }
+
+        /* Upload row */
+        .bill-upload {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        .table th {
+            background: #f8fafc;
+        }
+
+        /* Form */
+        .form-actions {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .secondary {
+            background: #e5e7eb;
+            color: #111827;
+        }
+    </style>
 </head>
 <body>
+
+<!-- ================= NAVBAR ================= -->
 <div class="navbar">
     <h2>Student Bill Portal</h2>
-    <div>
-        <a href="/logout">Logout</a>
-    </div>
+    <a href="/logout">Logout</a>
 </div>
 
 <div class="container">
-    <div class="card">
-        <h1>New Bill Request</h1>
+<div class="card">
 
-        <form method="post" enctype="multipart/form-data">
+<h1>New Bill Request</h1>
 
-            <div class="form-grid">
+<form method="post" enctype="multipart/form-data">
 
-                <div class="form-group">
-                    <label>Shop Name</label>
-                    <input name="shop" required>
-                </div>
+<!-- ================= UPLOAD DOCUMENTS ================= -->
+<h3>Upload Documents</h3>
 
-                <div class="form-group">
-                    <label>Total Amount</label>
-                    <input name="total" required>
-                </div>
-
-                <!-- PRODUCT SECTION -->
-                <div class="form-group full">
-                    <label>Product Details</label>
-
-                    <div id="products" class="product-box">
-
-                        <div class="product-row">
-                            <input name="product_name[]" placeholder="Product Name" required>
-                            <input name="product_price[]" placeholder="Price" required>
-                            <button type="button" class="remove-btn" onclick="removeProduct(this)">✖</button>
-                        </div>
-
-                    </div>
-
-                    <button type="button" class="add-btn" onclick="addProduct()">+ Add Product</button>
-                </div>
-
-                <div class="form-group">
-                    <label>Bank Name</label>
-                    <input name="bank" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Account Number</label>
-                    <input name="acc" required>
-                </div>
-
-                <div class="form-group">
-                    <label>IFSC Code</label>
-                    <input name="ifsc" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Branch</label>
-                    <input name="branch" required>
-                </div>
-
-                <div class="form-group full">
-                    <label>Upload Bill PDF</label>
-                    <input type="file" name="bill_pdf" accept="application/pdf" required>
-                </div>
-
-                <div class="form-group full">
-                    <label>Upload Passbook PDF</label>
-                    <input type="file" name="passbook_pdf" accept="application/pdf" required>
-                </div>
-
-            </div>
-
-            <div class="form-actions">
-                <button type="submit">Submit Request</button>
-                <a href="/student/{{ sid }}">
-                    <button type="button" class="secondary">Cancel</button>
-                </a>
-            </div>
-
-        </form>
+<label>Upload Bill PDFs</label>
+<div id="billUploads">
+    <div class="bill-upload">
+        <input type="file" name="bill_pdfs[]" accept="application/pdf" required>
+        <button type="button" class="remove-btn" onclick="removeBillUpload(this)">✖</button>
     </div>
 </div>
 
-<!-- JS FOR DYNAMIC PRODUCTS -->
+<button type="button" class="add-btn" onclick="addBillUpload()">+ Add Bill</button>
+
+<br><br>
+
+<label>Upload Passbook PDF</label>
+<input type="file" name="passbook_pdf" accept="application/pdf" required>
+
+<hr>
+
+<!-- ================= ENTER BILL DETAILS ================= -->
+<h3>Enter Bill Details</h3>
+
+<table class="table">
+<thead>
+<tr>
+    <th>Shop Name</th>
+    <th>Bill No</th>
+    <th>Bill Amount (₹)</th>
+    <th></th>
+</tr>
+</thead>
+<tbody id="billTableBody">
+<tr>
+    <td><input name="shop_name[]" required></td>
+    <td><input name="bill_no[]" value="1" readonly></td>
+    <td>
+        <input type="number" name="bill_amount[]" oninput="calculateTotals()" required>
+    </td>
+    <td>
+        <button type="button" class="remove-btn" onclick="removeBillRow(this)">✖</button>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<button type="button" class="add-btn" onclick="addBillRow()">+ Add Bill Row</button>
+
+<br><br>
+
+<label>Final Total (All Shops)</label>
+<input type="number" id="finalTotal" name="total" readonly>
+
+<hr>
+
+<!-- ================= BANK DETAILS ================= -->
+<h3>Bank Details</h3>
+
+<div class="bank-grid">
+    <div>
+        <label>Bank Name</label>
+        <input name="bank" required>
+    </div>
+
+    <div>
+        <label>Account Number</label>
+        <input name="acc" required>
+    </div>
+
+    <div>
+        <label>IFSC Code</label>
+        <input name="ifsc" required>
+    </div>
+
+    <div>
+        <label>Branch</label>
+        <input name="branch" required>
+    </div>
+</div>
+
+
+<div class="form-actions">
+    <button type="submit">Submit Request</button>
+    <a href="/student/{{ sid }}">
+        <button type="button" class="secondary">Cancel</button>
+    </a>
+</div>
+
+</form>
+</div>
+</div>
+
+<!-- ================= JS ================= -->
 <script>
-function addProduct() {
-    const div = document.createElement("div");
-    div.className = "product-row";
-    div.innerHTML = `
-        <input name="product_name[]" placeholder="Product Name" required>
-        <input name="product_price[]" placeholder="Price" required>
-        <button type="button" class="remove-btn" onclick="removeProduct(this)">✖</button>
-    `;
-    document.getElementById("products").appendChild(div);
+function billUploadCount() {
+    return document.querySelectorAll('#billUploads input[type="file"]').length;
 }
 
-function removeProduct(btn) {
+function billRowCount() {
+    return document.querySelectorAll('#billTableBody tr').length;
+}
+
+function addBillUpload() {
+    const div = document.createElement("div");
+    div.className = "bill-upload";
+    div.innerHTML = `
+        <input type="file" name="bill_pdfs[]" accept="application/pdf" required>
+        <button type="button" class="remove-btn" onclick="removeBillUpload(this)">✖</button>
+    `;
+    document.getElementById("billUploads").appendChild(div);
+}
+
+function removeBillUpload(btn) {
     btn.parentElement.remove();
+    while (billRowCount() > billUploadCount()) {
+        document.querySelector("#billTableBody tr:last-child").remove();
+    }
+    renumberBills();
+    calculateTotals();
+}
+
+function addBillRow() {
+    if (billRowCount() >= billUploadCount()) {
+        alert(`You uploaded only ${billUploadCount()} bill(s). Upload more bills to add rows.`);
+        return;
+    }
+    const tbody = document.getElementById("billTableBody");
+    const row = tbody.insertRow();
+    row.innerHTML = `
+        <td><input name="shop_name[]" required></td>
+        <td><input name="bill_no[]" readonly></td>
+        <td><input type="number" name="bill_amount[]" oninput="calculateTotals()" required></td>
+        <td><button type="button" class="remove-btn" onclick="removeBillRow(this)">✖</button></td>
+    `;
+    renumberBills();
+}
+
+function removeBillRow(btn) {
+    btn.closest("tr").remove();
+    renumberBills();
+    calculateTotals();
+}
+
+function renumberBills() {
+    document.querySelectorAll('input[name="bill_no[]"]').forEach((inp, i) => {
+        inp.value = i + 1;
+    });
+}
+
+function calculateTotals() {
+    let total = 0;
+    document.querySelectorAll('input[name="bill_amount[]"]').forEach(inp => {
+        total += Number(inp.value) || 0;
+    });
+    document.getElementById("finalTotal").value = total;
 }
 </script>
 

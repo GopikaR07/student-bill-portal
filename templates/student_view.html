@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>Student Bill Portal</h2>
+    <div>
+        <a href="/student/{{ sid }}">Back</a>
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>Request Details</h1>
+    </div>
+
+    <!-- STUDENT INFO -->
+    <div class="card">
+        <p><strong>Student Name:</strong> {{ student_name }}</p>
+        <p><strong>Student ID:</strong> {{ sid }}</p>
+        <p><strong>Status:</strong>
+            <span class="status-{{ request.status|lower }}">
+                {{ request.status }}
+            </span>
+        </p>
+        <p><strong>Total Amount:</strong> ₹ {{ request.total }}</p>
+    </div>
+
+    <!-- BILL DETAILS -->
+    <div class="card">
+        <h2>Bill Details</h2>
+
+        {% for shop in shops %}
+        <h3>{{ shop.shop_name }}</h3>
+
+        <table>
+            <tr>
+                <th>Bill No</th>
+                <th>Amount</th>
+                <th>Bill PDF</th>
+            </tr>
+
+            {% for bill in shop.bills %}
+            <tr>
+                <td>{{ bill.bill_no }}</td>
+                <td>₹ {{ bill.bill_amount }}</td>
+                <td>
+                    <a href="/{{ bill.bill_pdf }}" target="_blank">View Bill</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+            <tr>
+                <td colspan="3"><strong>Shop Total: ₹ {{ shop.shop_total }}</strong></td>
+            </tr>
+        </table>
+        {% endfor %}
+    </div>
+
+    <!-- BANK DETAILS -->
+    <div class="card">
+        <h2>Bank Details</h2>
+        <table>
+            <tr><th>Bank</th><td>{{ bank.bank }}</td></tr>
+            <tr><th>Account No</th><td>{{ bank.acc }}</td></tr>
+            <tr><th>IFSC</th><td>{{ bank.ifsc }}</td></tr>
+            <tr><th>Branch</th><td>{{ bank.branch }}</td></tr>
+            <tr>
+                <th>Passbook</th>
+                <td>
+                    <a href="/{{ bank.passbook_pdf }}" target="_blank">
+                        View Passbook
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

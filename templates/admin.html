@@ -3,71 +3,126 @@
 <head>
     <title>Admin Panel</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleDetails(id, btn) {
+            const row = document.getElementById("details-" + id);
+            if (row.style.display === "none") {
+                row.style.display = "table-row";
+                btn.innerText = "Close";
+            } else {
+                row.style.display = "none";
+                btn.innerText = "View";
+            }
+        }
+    </script>
 </head>
 <body>
+
 <div class="navbar">
     <h2>Student Bill Portal</h2>
-    <div>
-        <a href="/logout">Logout</a>
-    </div>
+    <a href="/logout">Logout</a>
 </div>
 
 <div class="container">
 
-    <div class="header">
-        <h1>Admin Panel</h1>
-    </div>
+<div class="header">
+    <h1>Admin Panel</h1>
+</div>
 
-    <div class="card">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Student ID</th>
-                <th>Shop</th>
-                <th>Products</th>
-                <th>Total</th>
-                <th>Documents</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
+<div class="card">
 
-            {% for r in rows %}
-            <tr>
-                <td>{{ r.id }}</td>
-                <td>{{ r.student_id }}</td>
-                <td>{{ r.shop }}</td>
-                <td>{{ r.products }}</td>
-                <td>₹ {{ r.total }}</td>
-               <td>
-  {% if r.bill %}
-  <a href="/{{ r.bill }}" target="_blank">View Bill</a><br>
-{% endif %}
-{% if r.passbook %}
-  <a href="/{{ r.passbook }}" target="_blank">View Passbook</a>
-{% endif %}
+<table>
+<tr>
+    <th>Student ID</th>
+    <th>Student Name</th>
+    <th>Total Amount</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
 
+{% for r in rows %}
+<tr>
+    <td>{{ r.student_id }}</td>
+    <td>{{ r.student_name }}</td>
+    <td>₹ {{ r.total }}</td>
+    <td class="status-{{ r.status|lower }}">{{ r.status }}</td>
+    <td>
+        <button onclick="toggleDetails({{ r.request_id }}, this)">View</button>
+    </td>
+</tr>
+
+<tr id="details-{{ r.request_id }}" style="display:none;">
+<td colspan="5">
+
+<!-- ================= BILL DETAILS ================= -->
+<h3>Bill Details</h3>
+<table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+<tr style="background:#f1f5f9;">
+    <th style="border:1px solid #ccc; padding:8px;">Shop</th>
+    <th style="border:1px solid #ccc; padding:8px;">Bill No</th>
+    <th style="border:1px solid #ccc; padding:8px;">Amount</th>
+    <th style="border:1px solid #ccc; padding:8px;">Bill PDF</th>
+</tr>
+
+{% for shop in r.shops %}
+    {% for bill in shop.bills %}
+    <tr>
+        <td style="border:1px solid #ccc; padding:8px;">{{ shop.shop_name }}</td>
+        <td style="border:1px solid #ccc; padding:8px;">{{ bill[0] }}</td>
+        <td style="border:1px solid #ccc; padding:8px;">₹ {{ bill[1] }}</td>
+        <td style="border:1px solid #ccc; padding:8px;">
+            <a href="/{{ bill[2] }}" target="_blank">View Bill</a>
+        </td>
+    </tr>
+    {% endfor %}
+{% endfor %}
+</table>
+
+<!-- ================= BANK DETAILS ================= -->
+<h3>Bank Details</h3>
+<table style="width:60%; border-collapse:collapse; margin-bottom:20px;">
+<tr>
+    <td style="border:1px solid #ccc; padding:8px;"><strong>Bank</strong></td>
+    <td style="border:1px solid #ccc; padding:8px;">{{ r.bank[0] }}</td>
+</tr>
+<tr>
+    <td style="border:1px solid #ccc; padding:8px;"><strong>Account No</strong></td>
+    <td style="border:1px solid #ccc; padding:8px;">{{ r.bank[1] }}</td>
+</tr>
+<tr>
+    <td style="border:1px solid #ccc; padding:8px;"><strong>IFSC</strong></td>
+    <td style="border:1px solid #ccc; padding:8px;">{{ r.bank[2] }}</td>
+</tr>
+<tr>
+    <td style="border:1px solid #ccc; padding:8px;"><strong>Branch</strong></td>
+    <td style="border:1px solid #ccc; padding:8px;">{{ r.bank[3] }}</td>
+</tr>
+<tr>
+    <td style="border:1px solid #ccc; padding:8px;"><strong>Passbook</strong></td>
+    <td style="border:1px solid #ccc; padding:8px;">
+        <a href="/{{ r.bank[4] }}" target="_blank">View Passbook</a>
+    </td>
+</tr>
+</table>
+
+<a href="/verify/{{ r.request_id }}/Approved">
+    <button>Approve</button>
+</a>
+<a href="/verify/{{ r.request_id }}/Rejected">
+    <button class="secondary">Reject</button>
+</a>
 
 </td>
+</tr>
+{% endfor %}
+</table>
 
-                <td class="status-{{ r.status|lower }}">{{ r.status }}</td>
-                <td>
-                    <a href="/verify/{{ r.id }}/Approved">
-                        <button>Approve</button>
-                    </a>
-                    <a href="/verify/{{ r.id }}/Rejected">
-                        <button class="secondary">Reject</button>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+<br>
+<a href="/download">
+    <button>Download Approved Excel</button>
+</a>
 
-        <br>
-        <a href="/download">
-            <button>Download Approved Excel</button>
-        </a>
-    </div>
-
+</div>
 </div>
 
 </body>

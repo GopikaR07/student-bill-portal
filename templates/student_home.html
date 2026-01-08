@@ -6,20 +6,28 @@
 </head>
 <body>
 
-  <div class="navbar">
+<!-- NAVBAR -->
+<div class="navbar">
     <h2>Student Bill Portal</h2>
     <div>
         <a href="/logout">Logout</a>
     </div>
 </div>
 
-
 <div class="container">
 
+    <!-- HEADER -->
     <div class="header">
         <h1>Student Dashboard</h1>
     </div>
 
+    <!-- STUDENT INFO -->
+    <div class="card">
+        <p><strong>Student Name:</strong> {{ student_name }}</p>
+        <p><strong>Student ID:</strong> {{ sid }}</p>
+    </div>
+
+    <!-- ACTION -->
     <div class="card actions">
         <h2>Request History</h2>
         <a href="/student/{{ sid }}/new">
@@ -27,19 +35,28 @@
         </a>
     </div>
 
+    <!-- HISTORY TABLE -->
     <div class="card">
         {% if requests %}
         <table>
             <tr>
-                <th>Request ID</th>
+                <th>S.No</th>
                 <th>Total Amount</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
+
             {% for r in requests %}
             <tr>
-                <td>{{ r[0] }}</td>
+                <td>{{ loop.index }}</td>
                 <td>₹ {{ r[1] }}</td>
                 <td class="status-{{ r[2]|lower }}">{{ r[2] }}</td>
+                <td>
+                    <a href="/student/{{ sid }}/view/{{ r[0] }}">
+    <button>View</button>
+</a>
+
+                </td>
             </tr>
             {% endfor %}
         </table>

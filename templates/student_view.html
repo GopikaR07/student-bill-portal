@@ -10,7 +10,7 @@
 <div class="navbar">
     <h2>Student Bill Portal</h2>
     <div>
-        <a href="/student/{{ sid }}">Back</a>
+        <a href="/student/{{ club_id }}">Back</a>
         <a href="/logout">Logout</a>
     </div>
 </div>
@@ -22,10 +22,10 @@
         <h1>Request Details</h1>
     </div>
 
-    <!-- STUDENT INFO -->
+    <!-- CLUB INFO -->
     <div class="card">
-        <p><strong>Student Name:</strong> {{ student_name }}</p>
-        <p><strong>Student ID:</strong> {{ sid }}</p>
+        <p><strong>Club Name:</strong> {{ club_name }}</p>
+        <p><strong>Username:</strong> student</p>
         <p><strong>Status:</strong>
             <span class="status-{{ request.status|lower }}">
                 {{ request.status }}
@@ -69,6 +69,9 @@
     <div class="card">
         <h2>Bank Details</h2>
         <table>
+            <!-- ✅ NEW LINE (ONLY ADDITION) -->
+            <tr><th>Account Holder Name</th><td>{{ bank.acc_holder }}</td></tr>
+
             <tr><th>Bank</th><td>{{ bank.bank }}</td></tr>
             <tr><th>Account No</th><td>{{ bank.acc }}</td></tr>
             <tr><th>IFSC</th><td>{{ bank.ifsc }}</td></tr>

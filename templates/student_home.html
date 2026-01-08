@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Dashboard</title>
+    <title>Club Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -18,19 +18,19 @@
 
     <!-- HEADER -->
     <div class="header">
-        <h1>Student Dashboard</h1>
+        <h1>Club Dashboard</h1>
     </div>
 
-    <!-- STUDENT INFO -->
+    <!-- CLUB INFO -->
     <div class="card">
-        <p><strong>Student Name:</strong> {{ student_name }}</p>
-        <p><strong>Student ID:</strong> {{ sid }}</p>
+        <p><strong>Club Name:</strong> {{ club_name }}</p>
+        <p><strong>Username:</strong> student</p>
     </div>
 
     <!-- ACTION -->
     <div class="card actions">
         <h2>Request History</h2>
-        <a href="/student/{{ sid }}/new">
+        <a href="/student/{{ club_id }}/new">
             <button>+ New Request</button>
         </a>
     </div>
@@ -52,10 +52,9 @@
                 <td>₹ {{ r[1] }}</td>
                 <td class="status-{{ r[2]|lower }}">{{ r[2] }}</td>
                 <td>
-                    <a href="/student/{{ sid }}/view/{{ r[0] }}">
-    <button>View</button>
-</a>
-
+                    <a href="/student/{{ club_id }}/view/{{ r[0] }}">
+                        <button>View</button>
+                    </a>
                 </td>
             </tr>
             {% endfor %}

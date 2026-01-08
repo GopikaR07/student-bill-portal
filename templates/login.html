@@ -25,15 +25,15 @@
 
             <div class="form-row">
                 <label>Role</label>
-                <select name="role" onchange="updateLoginLabel()">
+                <select name="role">
                     <option value="student">Student</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
 
             <div class="form-row">
-                <label id="idLabel">Student ID</label>
-                <input name="student_id" id="idInput" placeholder="S001" required>
+                <label>Username</label>
+                <input name="student_id" placeholder="student / admin" required>
             </div>
 
             <div class="form-row">
@@ -43,24 +43,9 @@
 
             <button type="submit" class="login-btn">Login</button>
         </form>
+
     </div>
 </div>
-
-<script>
-function updateLoginLabel() {
-    const role = document.querySelector("select[name='role']").value;
-    const label = document.getElementById("idLabel");
-    const input = document.getElementById("idInput");
-
-    if (role === "admin") {
-        label.innerText = "Admin ID";
-        input.placeholder = "...";
-    } else {
-        label.innerText = "Student ID";
-        input.placeholder = "...";
-    }
-}
-</script>
 
 </body>
 </html>
